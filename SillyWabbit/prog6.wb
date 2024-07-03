@@ -1,0 +1,27 @@
+enum Number {
+    Integer(int);
+    Float(float);
+}
+
+func add(a Number, b Number) Number {
+   return match(a) {
+             Integer(x) => match(b) {
+                   Integer(y) => Number::Integer(x + y);
+                   Float(y) => Number::Float(float(x) + y);
+             };
+             Float(x) => match(b) {
+                   Integer(y) => Number::Float(x + float(x));
+                   Float(y) => Number::Float(x + y);
+             };
+   };
+}
+
+var a = Number::Integer(42);
+var b = Number::Float(3.7);
+var c = add(a, b);
+
+match(c) {
+    Integer(x) => { print x; };
+    Float(x) => { print x; };
+};
+
